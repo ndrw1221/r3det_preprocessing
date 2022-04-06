@@ -1,29 +1,18 @@
-[![Docker Automated buil](https://img.shields.io/docker/automated/jjanzic/docker-python3-opencv.svg)]()
+Preprocessing code for piglet tracking r3det model
 
 Docker image with python 3.7 and opencv 4.1.0
 
-Usage:
+## Usage:
+Prepare volumes:
+ - source : contains original pig video
+ - cropped_frames : saves cropped frames
+ - cropped_videos : saves cropped video
+ - clips : saves clips for Sow Posture Recognition Model (SPRM)
+~~~
+docker run --rm -v source:/source \
+				-v cropped_frames:/cropped_frames \
+				-v cropped_videos:/cropped_videos \
+				-v clips:/clips \
+				crazyhathello/r3det_preprocessing
+~~~
 
-    docker run -it jjanzic/docker-python3-opencv python
-    >>> import cv2
-
-Image tagged with `:contrib` contains docker image built with [contrib modules](https://github.com/opencv/opencv_contrib/)
-
-List of available docker tags:
-
-- `opencv-4.1.0` (`latest` branch)
-- `contrib-opencv-4.1.0` (`opencv_contrib` branch)
-- `opencv-4.0.1`
-- `contrib-opencv-4.0.1`
-- `opencv-4.0.0`
-- `contrib-opencv-4.0.0`
-- `opencv-3.4.2`
-- `contrib-opencv-3.4.2`
-- `opencv-3.4.1`
-- `contrib-opencv-3.4.1`
-- `opencv-3.4.0`
-- `contrib-opencv-3.4.0`
-- `opencv-3.3.0`
-- `contrib-opencv-3.3.0`
-- `opencv-3.2.0`
-- `contrib-opencv-3.2.0`
