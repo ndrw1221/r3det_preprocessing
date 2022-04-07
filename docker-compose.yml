@@ -1,0 +1,6 @@
+version: "3.7"
+services:
+  r3det-preprocessing-service:
+    image: crazyhathello/r3det_preprocessing:0406night
+    volumes:
+      - volumeName:containerPath:ro

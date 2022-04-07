@@ -26,6 +26,7 @@ RUN apt-get -qq update \
     libavformat-dev \
     libpq-dev \
     && pip install numpy \
+    && pip install -U scikit-image \
     && wget -q https://github.com/opencv/opencv/archive/${OPENCV_VERSION}.zip -O opencv.zip \
     && unzip -qq opencv.zip -d /opt \
     && rm -rf opencv.zip \
@@ -53,7 +54,7 @@ RUN apt-get -qq update \
     && rm -rf /opt/opencv-${OPENCV_VERSION} \
     && rm -rf /var/lib/apt/lists/* \
     && apt-get -qq autoremove \
-    && apt-get -qq clean
+    && apt-get -qq clean 
 
 WORKDIR /
 

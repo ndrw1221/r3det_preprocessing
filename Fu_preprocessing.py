@@ -8,17 +8,16 @@ from skimage.metrics import structural_similarity
 
 dir_n = 2                   # 影片在資料夾內的層數 (路徑為影片:0, 資料夾/影片:1, 資料夾/資料夾/影片:2 ...)
 rpi = 'rpi1_'               # 存檔命名用
-video_path = 'source/video1.mp4'              # 原始影片位置
-img_save_path = 'cropped_photos/rpi1/'    # 校正後影像位置
-new_video_save_path = 'cropped_videos/rpi1/' 
+video_path = '/source/'              # 原始影片位置
+img_save_path = '/cropped_frames/rpi1/'    # 校正後影像位置
+new_video_save_path = '/cropped_videos/rpi1/' 
 filename_n = 4              # 檔名字數(6:前面補0至6位數 000001)
 sep = True                  # 1分鐘影片切成30秒
 vdo = False
 image_height = 1024
 image_width = 1024
 
-# ROIs = {'rpi':[(263, 8), (210, 526), (713, 536), (688, 30)]}
-ROIs = {'rpi':[(229, 49), (205, 540), (823, 537), (742, 32)]}
+ROIs = {'rpi':[(218, 59), (239, 537), (745, 525), (674, 30)]}
 similarity = 1
 index = 0
 
@@ -81,7 +80,7 @@ def cut_video(video, img_save_path, new_video_save_path):
     pa = rpi +  pa
     p = img_save_path + '/' + pa
     try:
-        os.mkdir(p)
+        os.makedirs(p)
     except FileExistsError:
         print(p + "  exist")
 
@@ -102,7 +101,8 @@ def cut_video(video, img_save_path, new_video_save_path):
             crop_frames += 1
             continue
 
-        s = structural_similarity(target_image, cv2.cvtColor(processed, cv2.COLOR_BGR2GRAY))
+        # s = structural_similarity(target_image, cv2.cvtColor(processed, cv2.COLOR_BGR2GRAY))
+        s = 1
         if s <= similarity:
             n = filename_n - len(str(start + crop_frames))
             filename = str(0) * n + str(start + crop_frames + index)
