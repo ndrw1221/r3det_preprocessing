@@ -112,37 +112,37 @@ def cut_video(video, img_save_path, new_video_save_path):
             target_image = cv2.cvtColor(processed, cv2.COLOR_BGR2GRAY)
 
     # sepImg -------------------------------------------------------------------
-    if sep is True:
-        images = [img for img in os.listdir(p)]
-        oldpath = p
-        newpath_1 = p + '-1'
-        newpath_2 = p + '-2'
-        try:
-            os.makedirs(newpath_1)
-        except FileExistsError:
-            print(newpath_1 + "  exist")
-        try:
-            os.makedirs(newpath_2)
-        except FileExistsError:
-            print(newpath_2 + "  exist")
+    # if sep is True:
+    #     images = [img for img in os.listdir(p)]
+    #     oldpath = p
+    #     newpath_1 = p + '-1'
+    #     newpath_2 = p + '-2'
+    #     try:
+    #         os.makedirs(newpath_1)
+    #     except FileExistsError:
+    #         print(newpath_1 + "  exist")
+    #     try:
+    #         os.makedirs(newpath_2)
+    #     except FileExistsError:
+    #         print(newpath_2 + "  exist")
 
-        i = 0
-        for image in images[:150]:
-            shutil.move(os.path.join(oldpath, image), os.path.join(newpath_1, image))
-        for image in images[150:300]:
-            n = 4 - len(str(i))
-            new_name = '{}.jpg'.format(i)
-            new_name = str(0) * n + new_name
-            shutil.move(os.path.join(oldpath, image), os.path.join(newpath_2, new_name))
-            i = i+1
+    #     i = 0
+    #     for image in images[:150]:
+    #         shutil.move(os.path.join(oldpath, image), os.path.join(newpath_1, image))
+    #     for image in images[150:300]:
+    #         n = 4 - len(str(i))
+    #         new_name = '{}.jpg'.format(i)
+    #         new_name = str(0) * n + new_name
+    #         shutil.move(os.path.join(oldpath, image), os.path.join(newpath_2, new_name))
+    #         i = i+1
 
-        # remove empty dir
-        oldpath = p
-        if not os.listdir(oldpath):  #判斷資料夾是否為空
-            os.rmdir(oldpath)
-            print(oldpath + ' removed')
-        else:
-            print('skip')
+    #     # remove empty dir
+    #     oldpath = p
+    #     if not os.listdir(oldpath):  #判斷資料夾是否為空
+    #         os.rmdir(oldpath)
+    #         print(oldpath + ' removed')
+    #     else:
+    #         print('skip')
 
     cap.release()
 

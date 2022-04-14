@@ -3,4 +3,14 @@ services:
   r3det-preprocessing-service:
     image: crazyhathello/r3det_preprocessing:0406night
     volumes:
-      - volumeName:containerPath:ro
+      - cropped_frames:/cropped_frames
+      - cropped_videos:/cropped_videos
+  r3det-main:
+    image: crazyhathello/r3det:0316_Dockerfile_new
+    volumes:
+      - cropped_frames:/cropped_frames
+      - /path/on/host:/r3det_piglet_tracking/work_dirs/r3det_r50_fpn_2x_20211006/submission
+volumes:
+  cropped_frames:
+  cropped_videos:
+  
