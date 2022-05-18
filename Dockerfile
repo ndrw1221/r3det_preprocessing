@@ -60,4 +60,4 @@ WORKDIR /
 
 COPY Fu_preprocessing.py .
 
-CMD [ "python3", "Fu_preprocessing.py"]
+CMD ["python","./Fu_preprocessing.py"]

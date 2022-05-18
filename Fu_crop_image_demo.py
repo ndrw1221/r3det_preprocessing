@@ -1,9 +1,9 @@
 import cv2
 import numpy as np
-
+import argparse
 # grab references to the global variables 
 pts = [] 
-rpi = "2"
+
 def click_and_crop(event, x, y, flags, param):
     
     global pts
@@ -17,13 +17,20 @@ def click_and_crop(event, x, y, flags, param):
 
 
 def crop():
-    ROIs = {'rpi{}'.format(rpi):[]}
+    if args.rpi is not None:
+        rpi_name = args.rpi
+    else:
+        rpi_name = "1"
+    ROIs = {"rpi_{}".format(rpi_name):[]}
 
     # Click on points counter-clockwise starting from top left
 
     # load the image, clone it, and setup the mouse callback function
     global image, pts, clone
-    image = cv2.imread('input_videos/rpi{}/calibration.jpg'.format(rpi))
+    if args.input_path is not None:
+        image = cv2.imread(args.input_path)
+    else:
+        image = cv2.imread('calibration.jpg')
     clone = image.copy()
     cv2.namedWindow("image")
     cv2.setMouseCallback("image", click_and_crop)
@@ -45,7 +52,7 @@ def crop():
                 print('Only 4 points are acceptable')
             else:
                 print(pts)
-                ROIs['rpi{}'.format(rpi)] = pts
+                ROIs["rpi_{}".format(rpi_name)] = pts
 
                 src = np.array(pts, dtype = np.float32)
                 dst = np.float32([(0, 0), (0, 512), (512, 512), (512, 0)])
@@ -73,8 +80,12 @@ def crop():
             break              
 
     # Save to txt and close all open windows
-    
-    with open('input_videos/rpi{}/ROIs.txt'.format(rpi), 'w') as f:
+    path = ""
+    if args.output_path is not None:
+        path = args.output_path
+    else:
+        path = "ROIs.txt"
+    with open(path,"w+") as f:    
         for key, value in ROIs.items():
             f.write('%s:%s\n' % (key, value))
 
@@ -82,4 +93,10 @@ def crop():
 
                
 if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description='Calculate calibration parameters for preprocessing module')
+    parser.add_argument('-i','--input_path', help='input path of image for calibration')
+    parser.add_argument('-o','--output_path', help='output path for saving calibration results')
+    parser.add_argument('-rpi', help='rpi name prefix')
+    args,_ = parser.parse_known_args()
+
     crop()
