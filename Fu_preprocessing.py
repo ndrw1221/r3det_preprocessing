@@ -206,14 +206,6 @@ def cut_video(video, img_save_path, new_video_save_path):
                     video_1.write(cv2.imread(
                         os.path.join(image_folder, image)))
                 print('save ' + video_save)
-        # try:
-        #     shutil.rmtree(newpath_1)
-        #     print("newpath_1 successfully removed")
-        #     shutil.rmtree(newpath_2)
-        #     print("newpath_2 successfully removed")
-        # except:
-        #     print("Error removing folders")
-        # cv2.destroyAllWindows()
 
 
 if __name__ == '__main__':
